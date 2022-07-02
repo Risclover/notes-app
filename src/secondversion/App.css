@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  padding: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.App {
+  border: 1px solid red;
+  padding: 5px;
+  width: 500px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  width: 300px;
+  transition: all 0.5s ease;
+}
+
+.nav-item:hover {
+  background-color: #dfdfdf;
+}
+
+.nav-delete {
+  display: none;
+  transition: all 0.5s ease;
+}
+
+.nav-delete > svg {
+  color: red;
+  transition: 0.5s ease;
+}
+
+.nav-item:hover .nav-delete {
+  display: block;
+  transition: all 0.5s ease;
+}

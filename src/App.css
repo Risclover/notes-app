@@ -1,0 +1,164 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 5px;
+}
+
+main {
+  display: flex;
+}
+
+.app-title {
+  text-align: center;
+  padding-top: 5px;
+  margin-bottom: 30px;
+}
+
+.notes-nav {
+  width: 300px;
+  height: 100%;
+  margin-right: 20px;
+  border: 1px solid red;
+}
+
+.notes-nav-title {
+  margin-bottom: 20px;
+}
+
+.notes-nav {
+  list-style-type: none;
+}
+
+.add-note {
+  display: flex;
+  flex-direction: column;
+}
+
+.notepad {
+  width: 500px;
+  border: 1px solid blue;
+  padding: 20px;
+}
+
+.add-notes-title {
+  margin-bottom: 20px;
+}
+
+.note-title {
+  padding: 5px;
+  margin: 10px;
+  margin-top: 0;
+}
+
+.type-note {
+  height: 400px;
+  margin: 10px;
+  padding: 15px;
+}
+
+.submit {
+  margin: 10px;
+  padding: 5px;
+}
+
+.note {
+  border: 1px solid black;
+  height: 200px;
+  width: 200px;
+  margin: 5px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.note-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.all-notes {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.title {
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.note-text {
+  overflow-y: auto;
+  height: 100px;
+  border: 1px solid black;
+  padding: 5px;
+  width: 100%;
+}
+
+.menu {
+  list-style: none;
+}
+
+.menu li {
+  padding: 10px 8px;
+  border-bottom: 1px solid black;
+  width: 100px;
+  text-align: center;
+  background: #000000;
+}
+
+.nav-item {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.nav-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 300px;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+}
+
+.nav-text:hover {
+  background-color: #efefef;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+}
+
+.nav-item:hover {
+  background-color: #efefef;
+}
+
+.title-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note-date {
+  width: 100%;
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.title-label {
+  margin: 10px;
+  margin-bottom: 3px;
+}
