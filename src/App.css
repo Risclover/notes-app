@@ -68,6 +68,7 @@ button {
 .author a {
   text-decoration: none;
   transition: 0.5s ease;
+  color: black;
 }
 
 .author a:visited {
@@ -277,4 +278,10 @@ main {
 .nav-item:hover .nav-delete {
   display: block;
   transition: all 0.5s ease;
+}
+
+@media (max-width: 525px) {
+  .App {
+    width: 100%;
+  }
 }
