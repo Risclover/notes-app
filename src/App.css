@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Patrick+Hand&family=Permanent+Marker&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Righteous&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Satisfy&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -6,25 +8,99 @@
 
 body,
 html {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Rubik, sans-serif;
   padding: 5px;
+  height: 100%;
+  background-color: #6077b6;
+}
+
+body {
+  max-height: 100vh;
+}
+input,
+textarea {
+  font-family: Rubik, sans-serif;
+}
+
+textarea {
+  line-height: 1.5;
+}
+
+button {
+  font-family: Rubik, sans-serif;
+  cursor: pointer;
+}
+
+.add-note-btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #475886;
+  color: white;
+  border: 1px solid #6077b6;
+  transition: 0.5s ease;
+  font-size: 20px;
+  border-radius: 5px;
+  margin: 10px auto 0 auto;
+}
+
+.add-note-btn:hover {
+  background-color: #6077b6;
+}
+
+.App {
+  width: 500px;
+  background-color: white;
+  padding: 10px;
+  margin: 0 auto;
+  height: 95vh;
+  max-height: 100%;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.author {
+  font-family: "Patrick Hand", cursive;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.author a {
+  text-decoration: none;
+  transition: 0.5s ease;
+}
+
+.author a:visited {
+  color: black;
+}
+
+.author a:hover {
+  color: #475886;
+  cursor: pointer;
 }
 
 main {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.main-content {
+  display: none;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .app-title {
   text-align: center;
   padding-top: 5px;
-  margin-bottom: 30px;
 }
 
 .notes-nav {
-  width: 300px;
-  height: 100%;
+  width: 100%;
   margin-right: 20px;
-  border: 1px solid red;
 }
 
 .notes-nav-title {
@@ -40,10 +116,16 @@ main {
   flex-direction: column;
 }
 
-.notepad {
-  width: 500px;
-  border: 1px solid blue;
+.navigation {
   padding: 20px;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.notepad {
+  padding: 20px;
+  height: 100%;
 }
 
 .add-notes-title {
@@ -51,15 +133,21 @@ main {
 }
 
 .note-title {
-  padding: 5px;
-  margin: 10px;
+  padding: 5px 10px;
+  margin: 5px;
   margin-top: 0;
+  font-size: 20px;
+  border: 0;
+  font-weight: 700;
 }
 
 .type-note {
-  height: 400px;
-  margin: 10px;
-  padding: 15px;
+  height: 320px;
+  margin: 5px;
+  margin-top: 0;
+  border: 0;
+  outline: 0;
+  padding: 10px;
 }
 
 .submit {
@@ -115,20 +203,15 @@ main {
   background: #000000;
 }
 
-.nav-item {
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
 .nav-text {
   overflow: hidden;
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   white-space: nowrap;
-  max-width: 300px;
+  max-width: 500px;
   height: 100%;
   width: 100%;
+  transition: 0.5s ease;
   padding: 10px;
 }
 
@@ -140,6 +223,9 @@ main {
   display: flex;
   align-items: center;
   padding-right: 10px;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.5s ease;
 }
 
 .nav-item:hover {
@@ -153,12 +239,42 @@ main {
 }
 
 .note-date {
+  font-size: 14px;
   width: 100%;
+  margin: 15px;
+  margin-bottom: 5px;
+  padding-right: 15px;
   text-align: right;
-  margin-bottom: 20px;
 }
 
 .title-label {
   margin: 10px;
   margin-bottom: 3px;
+}
+
+.searchbar {
+  font-family: "Rubik", sans-serif;
+  font-family: 20px;
+  width: 95%;
+  border: 0;
+  outline: 0;
+  border-bottom: 1px solid black;
+  padding: 8px;
+  margin: 5px;
+  margin-bottom: 20px;
+}
+
+.nav-delete {
+  display: none;
+  transition: all 0.5s ease;
+}
+
+.nav-delete > svg {
+  color: #475886;
+  transition: 0.5s ease;
+}
+
+.nav-item:hover .nav-delete {
+  display: block;
+  transition: all 0.5s ease;
 }

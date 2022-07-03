@@ -3,6 +3,11 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 
+import $ from "jquery";
+import "jquery-ui";
+window.jQuery = $;
+window.$ = $;
+
 let notesArray = localStorage.getItem("notes")
   ? JSON.parse(localStorage.getItem("notes"))
   : [];

@@ -3,86 +3,99 @@ import React, { useState } from "react";
 import Navigation from "./Navigation";
 import Notepad from "./Notepad";
 import "./App.css";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
 const date = new Date();
 const n = date.toDateString();
-const time = date.toLocaleTimeString();
 
 function App(props) {
   const [notes, setNotes] = useState(props.notes);
   const [notesCount, setNotesCount] = useState(0);
   const [activeId, setActiveId] = useState();
-  const [currentDate, setCurrentDate] = useState(n + " " + time);
+  const [currentDate, setCurrentDate] = useState(n);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleAddNote = (e) => {
+    const mainContent = document.querySelector(".main-content");
+    const navigation = document.querySelector(".navigation");
     const noteTitle = document.querySelector(".note-title");
     const noteText = document.querySelector(".type-note");
     e.preventDefault();
 
     if (e.target.textContent === "Edit Note") {
-      setCurrentDate(n + " " + time);
       for (const note of notes) {
         if (note.id === activeId) {
           note.title = noteTitle.value;
           note.text = noteText.value;
+          note.date = n;
           e.target.textContent = "Add Note";
           noteTitle.value = "";
           noteText.value = "";
         }
       }
       setNotes([...notes]);
-    } else if (e.target.textContent === "Add Note") {
-      const noteInput = document.querySelector(".type-note");
-      const noteTitle = document.querySelector(".note-title");
+      navigation.style.display = "block";
+      mainContent.style.display = "none";
+    } else if (e.target.textContent === "Save Note") {
+      mainContent.style.display = "none";
+      navigation.style.display = "block";
       if (noteTitle.value === "") {
-        if (noteInput.value !== "") {
+        if (noteText.value !== "") {
           const newNote = {
             title: "",
-            text: noteInput.value,
+            text: noteText.value,
             id: "note-" + Number(notesCount),
-            date: n + " " + time,
+            date: n,
           };
-          setNotesCount(notesCount + 1);
           setNotes([...notes, newNote]);
-          noteInput.value = "";
-          noteTitle.value = "";
-          console.log(notes);
         }
       } else {
-        if (noteInput.value !== "") {
+        if (noteText.value !== "") {
           const newNote = {
             title: noteTitle.value,
-            text: noteInput.value,
+            text: noteText.value,
             id: "note-" + Number(notesCount),
-            date: n + " " + time,
+            date: n,
           };
-          setNotesCount(notesCount + 1);
           setNotes([...notes, newNote]);
-          noteInput.value = "";
-          noteTitle.value = "";
-          console.log(notes);
         }
       }
+      e.target.textContent = "Add Note";
+      setNotesCount(notesCount + 1);
+    } else if (e.target.textContent === "Add Note") {
+      mainContent.style.display = "block";
+      navigation.style.display = "none";
+      e.target.textContent = "Save Note";
     }
-  };
-
-  const handleDelete = (e) => {
-    const newList = notes.filter(
-      (note) =>
-        `nav-${note.id}` !==
-        e.target.parentNode.parentNode.parentNode.children[0].id
-    );
-    setNotes(newList);
+    setCurrentDate(n);
+    noteText.value = "";
+    noteTitle.value = "";
     console.log(notes);
   };
 
+  const handleDelete = (e) => {
+    if (window.confirm("Are you sure you want to delete this note?")) {
+      const newList = notes.filter(
+        (note) =>
+          `nav-${note.id}` !==
+          e.target.parentNode.parentNode.parentNode.children[0].id
+      );
+      setNotes(newList);
+      console.log(notes);
+    }
+  };
+
   const handleNavClick = (e) => {
-    const submitBtn = document.querySelector(".submit");
+    const mainContent = document.querySelector(".main-content");
+    const navigation = document.querySelector(".navigation");
+    const submitBtn = document.querySelector(".add-note-btn");
     const noteTitle = document.querySelector(".note-title");
     const noteText = document.querySelector(".type-note");
+
+    mainContent.style.display = "block";
+    navigation.style.display = "none";
+
     for (let i = 0; i < notes.length; i++) {
       if (e.target.id === `nav-${notes[i].id}`) {
         submitBtn.textContent = "Edit Note";
@@ -104,40 +117,66 @@ function App(props) {
 
   return (
     <div className="App">
-      <h1 className="app-title">Notes App</h1>
       <main>
+        <h1 className="app-title">Notes App</h1>
+        <p className="author">
+          by{" "}
+          <a href="https://risclover.github.io/" target="_blank">
+            Risclover
+          </a>
+        </p>
         <Navigation>
+          <input
+            type="text"
+            placeholder="Search..."
+            className="searchbar"
+            onChange={(event) => {
+              setSearchTerm(event.target.value);
+            }}
+          />
+
           <ul className="notes-nav">
-            {notes.map((note) => {
-              return (
-                <li className="nav-item">
-                  <div
-                    className="nav-text"
-                    onClick={handleNavClick}
-                    id={"nav-" + note.id}
-                  >
-                    {note.title === "" ? note.text : note.title}
-                  </div>
-                  <div className="nav-delete">
-                    <FontAwesomeIcon
-                      icon={faTrash}
-                      className="delete-note"
-                      onClick={handleDelete}
-                    />
-                  </div>
-                </li>
-              );
-            })}
+            {notes
+              .filter((note) => {
+                if (searchTerm === "") {
+                  return note;
+                } else if (
+                  note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                  note.text.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  if (note.title === "") {
+                    return note.text;
+                  } else {
+                    return note.title;
+                  }
+                }
+              })
+              .map((note) => {
+                return (
+                  <li className="nav-item">
+                    <div
+                      className="nav-text"
+                      onClick={handleNavClick}
+                      id={"nav-" + note.id}
+                    >
+                      {note.title === "" ? note.text : note.title}
+                    </div>
+                    <div className="nav-delete">
+                      <FontAwesomeIcon
+                        icon={faTrash}
+                        className="delete-note"
+                        onClick={handleDelete}
+                      />
+                    </div>
+                  </li>
+                );
+              })}
           </ul>
         </Navigation>
         <div className="main-content">
-          <h2 className="add-notes-title">Add Note</h2>
           <Notepad>
             <form className="add-note">
               <div className="note-date">{currentDate}</div>
-              <label for="add-title" className="title-label">
-                Title:
-              </label>
               <input
                 type="text"
                 placeholder="Title"
@@ -148,12 +187,12 @@ function App(props) {
                 placeholder="Type a note here."
                 className="type-note"
               ></textarea>
-              <button type="submit" className="submit" onClick={handleAddNote}>
-                Add Note
-              </button>
             </form>
           </Notepad>
         </div>
+        <button className="add-note-btn" onClick={handleAddNote}>
+          Add Note
+        </button>
       </main>
     </div>
   );
